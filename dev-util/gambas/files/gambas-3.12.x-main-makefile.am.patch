@@ -1,0 +1,35 @@
+--- ./main/Makefile.am.bak	2019-01-12 17:47:15.000000000 +0300
++++ ./main/Makefile.am	2019-02-02 00:50:04.024430623 +0300
+@@ -37,14 +37,13 @@
+ 	
+ 	@echo "Making runtime symbolic link"
+ 	@$(LN_S) -f gbx$(GAMBAS_VERSION) $(DESTDIR)$(bindir)/gbr$(GAMBAS_VERSION) || true
+-	
+-	@if test x"$(XDG_UTILS)" != x; then \
+-		echo "Registering Gambas executable mimetype"; \
+-		$(INSTALL) -d $(DESTDIR)$(gbdatadir)/icons; \
+-		cp -f $(srcdir)/mime/application-x-gambas3.png $(DESTDIR)$(gbdatadir)/icons; \
+-		xdg-icon-resource install --context mimetypes --size 256 $(DESTDIR)$(gbdatadir)/icons/application-x-gambas3.png application-x-gambas3; \
+-		xdg-mime install $(srcdir)/mime/application-x-gambas3.xml; \
+-	fi
++
++
++
++	$(INSTALL) -d $(DESTDIR)$(gbdatadir)/icons;
++	cp -f $(srcdir)/mime/application-x-gambas3.png $(DESTDIR)$(gbdatadir)/icons;
++
++
+ 
+ 	@echo "Creating the information files for gb component..."
+ 	@$(INSTALL) -d $(DESTDIR)$(gbdatadir)/info
+@@ -72,10 +71,6 @@
+ uninstall-local:
+ 	@rm -f $(DESTDIR)$(bindir)/gbr$(GAMBAS_VERSION)
+ 	@rm -rf $(DESTDIR)$(gblibdir)/info
+-	@if test x"$(XDG_UTILS)" != x; then \
+-		xdg-mime uninstall $(srcdir)/mime/application-x-gambas3.xml; \
+-		xdg-icon-resource uninstall --context mimetypes --size 64 application-x-gambas3; \
+-	fi
+ 	@(cd $(srcdir)/tools; for p in gb*; do rm -f $(DESTDIR)$(bindir)/$$p.gambas $(DESTDIR)$(bindir)/$$p; done)
+ 	@rm -f $(DESTDIR)$(gblibdir)gb.component
+ 	@rm -rf $(DESTDIR)$(gbdatadir)/info/gb.info
