@@ -4,6 +4,7 @@
 
 echo "
 [gambas-overlay]
+
 priority = 50
 location = /usr/portage/
 sync-type = git
